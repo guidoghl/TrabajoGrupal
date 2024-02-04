@@ -1,0 +1,1517 @@
+---
+title: "CARACTERIZACIÓN DE LA POBLACIÓN PENITENCIARIA EN EL PERÚ"
+date:  "Diciembre 2023"
+output:
+  html_document:
+    code_folding: show
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+    theme: readable
+    lang: es-ES
+    df_print: paged
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+------------------------------------------------------------------------
+
+```{css echo = FALSE}
+# Cambiar color del título y subtítulos
+.columns {display:flex;}
+h1 {color: #052A59;}
+h2 {color: #274873;}
+h3 {color: #000000;}
+h4 {color: #000000;}
+```
+
+```{css echo = FALSE}
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
+    z-index: 2;
+    color: #FFFFFF;
+    background-color: #052A59;
+    border-color: #274873;
+}
+```
+
+```{r, echo=FALSE}
+# Agregar logo
+htmltools::img(src = knitr::image_uri("logo.png"),
+               style = 'position: absolute;
+                        top:3;
+                        right:0;
+                        padding:10px;',
+               width  = "250px",
+               heigth = "250px")
+```
+
+
+## Información general
+
+**Estudiantes:**
+
+-   Aburto Camacllanqui, Elías
+-   Avilés Elias, Gabriel
+-   Huaman Loayza, Guido
+-   Ramírez De la Cruz, Guadalupe
+-   Rivas Su, Juan Diego
+
+**Curso:** Fundamento de R para CCSS y Gestión Pública 2023
+
+**Diplomatura:** Especialización en Ciencia de Datos para las Ciencia Sociales y la Gestión Pública
+
+
+## 1. Introducción
+
+### Contexto
+
+La teoría de la tensión sostiene que la criminalidad surge de la frustración que experimentan las personas cuando no pueden lograr los fines culturales que la sociedad les impone, debido a la falta de medios institucionales legítimos para hacerlo (Merton, 1938). Así, las personas que se ven imposibilitadas de alcanzar el "objetivo de riqueza" que la sociedad valora, recurren a medios ilícitos para obtenerlo (1938, p. 679), lo que implica que la estructura social influye en la elección de las personas de cometer delitos. (Featherstone, 2003) y que la desigualdad de oportunidades incide en la exclusión de las personas de la sociedad y se convierte en un factor que propicia el crimen (Cheong & Wu, 2015, p. 203). 
+
+En tal sentido, el Pacto Internacional de Derechos Civiles y Políticos y la Convención Americana de Derechos Humanos señalan que la finalidad esencial de las penas es la reforma y readaptación social de las personas dentro del centro penitenciario (Orosco, 2017). Siendo ello así, el periodo de reclusión debe ser utilizado para asegurar el retorno a la comunidad (Oficina de las Naciones Unidas contra la Droga y el Delito, 2013); es decir, la recuperación o reinserción social, una vez habiendo logrado reeducarse y rehabilitarse (Magán, 2017). 
+
+Diversos autores señalan que el hacinamiento en el establecimiento penitenciario afecta en la eficiencia de la búsqueda de la reinserción social de los internos (Oficina de las Naciones Unidas contra la Droga y el Delito, 2013 & Orosco, 2017). Esto se debe a que en dicho entorno se encuentran expuestos a una serie de riesgos, como el abuso de sustancias ilegales y los altercados por disputas del espacio (Peñaloza, 2017); asimismo, ocasiona problemas psicológicos y emocionales ante la ausencia de espacios privados (Defensoría del Pueblo, 2018) y también se ve reducida la cantidad de espacios destinados al trabajo en talleres y actividades educativas (Magán, 2017). 
+
+Según el Censo Nacional de Población Penitenciaria 2016, desarrollado por el Instituto Nacional de Estadística e Informática – INEI y el Instituto Nacional Penitenciario – INPE, los centros penitenciarios del Perú se encuentran operando alrededor del 120% de su capacidad (Defensoría del Pueblo, 2018 & Peñaloza, 2017). Es por ello que, diversos autores cuestionan la capacidad de los Centros Penitencias en el Perú para albergar la cantidad de internos e internas que alojan, las condiciones de vida que existen dentro, así como de su funcionamiento como espacios de recuperación social de los reclusos. 
+
+En el año 2016, el Instituto Nacional de Estadística e Informática – INEI y el Instituto Nacional Penitenciario – INPE, desarrollaron el Censo Nacional de Población Penitenciaria, con el objetivo de obtener información estadística sobre la población penitenciaria adulta, que sirva para elaborar políticas públicas de prevención del delito orientadas a la reeducación, rehabilitación y reincorporación del interno a la sociedad. Sin embargo, cabe indicar que el presente año se discute en el Congreso de la República la generación de condiciones para la realización de un nuevo Censo Nacional de Población Penitenciaria en el año 2024; dado que ven por conveniente contar con información actualizada. 
+
+
+### Problema
+
+La reintegración a la sociedad de los internos se ve afectada por una serie de desafíos sociales, económicos y personales; tales como la familia, los compañeros, el abuso de sustancias o adicción, el nivel de educación o destreza, la marginación social, el abuso físico o emocional, el padecer de alguna discapacidad física, mental o problema de salud,  el haber tenido un estilo de vida delictivo que inició a temprana edad (Oficina de las Naciones Unidas contra la Droga y el Delito, 2013). Es así que el interno puede verse envuelto en un ciclo de reincidencia delictiva ante la imposibilidad de reinsertarse en la sociedad. Al respecto, Hernández (2018) identifica dos tipos de factores de riesgo de reincidencia delictiva: i) factores imposibles de cambiar (historia delictiva, estructura familiar o conductas antisociales ocurridas a temprana edad) y ii) los maleables (malas influencias, consumo de sustancias, etc). 
+
+Es por ello que, en un contexto de posible reincidencia delictiva, los cambios en las circunstancias familiares y de trabajo son factores claves para el desistimiento de cometer delitos (Oficina de las Naciones Unidas contra la Droga y el Delito, 2013). Un análisis realizado por Peñaloza (2017) sobre los factores asociados a las trayectorias exitosas de reinserción social identifica que el uso edificante del tiempo durante la fase de confinamiento, y un capital social que provea soporte emocional y opere como mecanismo de control social, permite superar las barreras al mercado laboral y asegurar la satisfacción de necesidades básicas.
+
+
+### Objetivo
+
+> > En ese contexto, el presente trabajo persigue el objetivo de describir las principales características relacionadas a las condiciones sociodemográficas previas en las que el interno vivía cuando cometía crímenes, las condiciones en las que conviven los internos de los Centros Penitenciarios en el Perú y las expectativas del interno al salir del Centro Penitenciario, a partir de la revisión al Censo Nacional de Población Penitenciaria 2016, realizado por el INEI e INPE. 
+
+Para dicho fin se han optado por observar las variables asociadas a los siguientes aspectos en tres etapas de la vida del interno(a): 
+
+- Antecedentes y aspectos sociodemográficos previos al encarcelamiento 
+
+    - Condiciones sociales y familiares del interno(a) 
+
+    - Información sobre el contexto delictivo del interno(a) 
+
+- Durante el encarcelamiento 
+
+    - Información general del Centro Penitenciario 
+
+    - Información general del interno(a) 
+
+    - Contexto del delito 
+
+    - Condiciones de vida y convivencia del interno(a) dentro del Centro Penitenciario 
+
+- Después del encarcelamiento
+    - Expectativas al salir del Centro Penitenciario 
+
+
+
+## 2. Metodología
+
+### Base de datos
+
+El estudio busca realizar un análisis descriptivo de la población penitenciaria en Perú con datos registrado en el censo del año 2016 obtenidos a partir de los microdatos del INEI. Para ello, se seleccionaron un grupo de variables que busca proporcionar una visión amplia de las características de la población en tres momentos cruciales: antes, durante y después de su reclusión. Para ello, se utilizaron los datos del censo penitenciario del año 2016, como se mencionó. El objetivo de este es recopilar información estadística de la población penitenciaria de personas adultas. Este censo se ejecutó en 66 establecimientos penitenciarios a nivel nacional, abarcando aproximadamente 77,500 internos. La cobertura geográfica incluye 24 departamentos del país y la Provincia Constitucional del Callao.
+
+El censo se divide en varios capítulos:
+- Capítulo 100: Condiciones Sociales y familiares del Interno
+- Capítulo 200: Tipificación del Delito
+- Capítulo 300: Condiciones de Vida en el Establecimiento Penitenciario
+- Capítulo 400: Rol de las Instituciones.
+
+Estos capítulos abordan aspectos específicos de la población penitenciaria, desde condiciones sociales y familiares hasta la tipificación del delito, condiciones de vida en el establecimiento penitenciario y el papel de las instituciones en el proceso de rehabilitación.
+
+
+Estos capítulos abordan aspectos específicos de la población penitenciaria, desde condiciones sociales y familiares hasta la tipificación del delito, condiciones de vida en el establecimiento penitenciario y el papel de las instituciones en el proceso de rehabilitación.
+
+**Antes de la reclusión:**
+
+- Se revisan datos relacionados con la vida previa al ingreso al establecimiento penitenciario, considerando el nivel de estudios alcanzado, las razones para no continuar con la educación, la presencia de enfermedades, el consumo de sustancias, el historial laboral y la posible influencia del entorno familiar en la predisposición al delito.
+
+**Durante la reclusión:**
+
+- Se utilizan los datos que describen la vida dentro del establecimiento penitenciario, abordando cuestiones como el delito genérico cometido, el idioma materno, la participación en programas educativos y laborales, así como las actividades realizadas durante el último mes. También se explora la frecuencia de visitas familiares y las razones detrás de la no participación en actividades institucionales.
+
+**Después de la reclusión:**
+
+- Por último, se utilizan los datos acerca de las aspiraciones y planes de los internos una vez liberados. Esta sección busca comprender sus perspectivas a futuro. 
+
+
+### Preprocesamiento
+
+Se integraron las bases de cada capítulo en un solo dataframe.
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+library(tidyverse) #conjunto de paquetes
+library("labelled") #Paquete para ver las etiquetas de las variables
+# 
+# 
+# #Creando las bases de datos
+# df1 <- haven::read_sav("01. Data/CARATULA/01_PENALES_CARATULA.sav")
+# df2 <- haven::read_sav("01. Data/CONDICIONES DE VIDA DEL INTERNO/01_PENALES_CAP300.sav")
+# df3 <- haven::read_sav("01. Data/CONDICIONES DEL INTERNO/01_PENALES_CAP100.sav")
+# df4 <- haven::read_sav("01. Data/ROL DE LAS INSTITUCIONES/01_PENALES_CAP400.sav")
+# df5 <- haven::read_sav("01. Data/TIPIFICACION DEL DELITO/01_PENALES_CAP200.sav")
+# 
+# #Integrando las bases de datos
+# 
+# df_1_2 <- inner_join(df1, df2, by = "ID_CARATULA", "INTERNO_ID")
+# df_1_2_3 <- inner_join(df_1_2, df3, by = "ID_CARATULA", "INTERNO_ID")
+# df_1_2_3_4 <- inner_join(df_1_2_3, df4, by = "ID_CARATULA", "INTERNO_ID")
+# df_total <- inner_join(df_1_2_3_4, df5, by = "ID_CARATULA", "INTERNO_ID")
+
+```
+
+
+Se seleccionaron las variables de interés y se exportó en formato sav.
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+# Seleccionar las variables de Interés
+
+# CNPP_data <- df_total |> 
+#   select(EST_PENIT, GENERO, E_CIVIL, TSALUD_8,
+#          EDAD, NACIONALIDAD, NAC_DD, DELITO_GENERICO, DELITO_ESPECIFICO, P101, P104_1, 
+#          P105, P107_1, P107C_1, P107_2, P107_3, P107_4, P107_5, 
+#          P107_6, P107_7, P107_8, P107_9, P107_10, P107_11, P107_12, 
+#          P109_1, P109_2, P109_3, P114, P133, P135, P201_DD, P204, P215, P220, 
+#          P303, P306, P308, P313_1, P313_2, P313_3, P313_4, P313_5, 
+#          P314, P315, P403_1, P403_2, P403_3, P403_4, P403_5, P403_6, 
+#          P403_7)
+
+
+# Guardar el dataframe en formato sav
+# library(haven)
+# 
+# write_sav(CNPP_data, "CNPP_data.sav")
+
+
+```
+
+Se observan las variables de interés y la identificación de posibles valores atípicos.
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# Importar datos
+
+CNPP_data <- haven::read_sav("CNPP_data.sav")
+CNPP_data
+
+
+# Presentar el contenido de las variables de interés
+var_label(CNPP_data)
+
+
+# Identificación de valores atípicos y datos perdidos
+summary(CNPP_data)
+```
+
+
+### Análisis de Datos
+
+En el marco de la presente investigación, se emplearon varios paquetes para facilitar la manipulación, limpieza y procesamiento de los datos. Inicialmente, se hizo uso del conjunto de paquetes "tidyverse", que incorpora herramientas como "dplyr" para transformar datos, "tidyr" para reorganizarlos y "ggplot2" para su visualización efectiva. El paquete "labelled" desempeñó el papel para la manipulación de datos etiquetados, permitiendo asignar, recuperar y gestionar etiquetas en las variables.
+
+Con el propósito de gestionar el formato específico de los datos de la Población Penitenciaria, originalmente en SPSS (.sav), se implementó el paquete "haven" para la importación y exportación eficiente de datos. Además, "plotly" se utilizó para la creación de gráficos interactivos, mientras que "mapsPERU" facilitó la representación cartográfica con datos específicos de Perú, posibilitando la elaboración de mapas temáticos.
+
+La mejora de la legibilidad en los gráficos fue abordada mediante el uso de "ggrepel", evitando superposiciones de etiquetas. En el ámbito de mapas interactivos, los paquetes "leaflet" y "leaflet.extras" posibilitaron la interacción con capas, marcadores y controles, mientras que "rworldxtra" proporcionó datos geográficos detallados a nivel mundial.
+ 
+Adicionalmente, se integraron los paquetes "raster" y "sf" para manipular imágenes y realizar análisis espaciales en R. Este enfoque multidisciplinario con diversos paquetes contribuyó para realizar un análisis completo de los datos recopilados en el censo del año 2016.
+
+
+## 3. Resultados 
+
+
+#### Antes: Antecedentes y aspectos sociodemográficos
+
+##### GENERO
+
+**Población Penitenciaria segun departamento y género**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+df1 <- CNPP_data |>
+  group_by(NAC_DD,GENERO)|>
+  summarise(cantidad=n())|>
+  mutate(GENERO=case_when(GENERO==1~"HOMBRE",
+                          TRUE~"MUJER"))
+
+print(df1)
+```
+
+Para una mejor visualizacion de la data, se modificó la columna género, 1 al valor de hombre y 2 al valor de mujer.
+
+```{r}
+ggplot(df1, aes(x = NAC_DD, y = cantidad, fill = GENERO)) +
+  geom_bar(stat = "identity", position = "dodge", width = 1) +
+  labs(x = "Provincia", y = "Cantidad", title = "Cantidad de personas por provincia y género")+
+    coord_cartesian(ylim = c(0, max(df1$cantidad) * 1.2)) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+En este grafico de barras podemos apreciar que Lima es la ciudad de origen con más reos tanto hombres como mujeres; seguido por Huanuco, La Libertad y Piura.
+
+
+##### NACIONALIDAD
+
+**CANTIDAD DE PERSONAS DE DIFERENTES NACIONALIDADES, RESUMEN DE TODAS LAS NACIONALIDADES**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+CNPP_data|>
+  select(NACIONALIDAD)|>
+  count(NACIONALIDAD)|>
+  rename("NRO_DE_REOS"=n)|>
+  arrange(desc(NRO_DE_REOS))
+
+
+```
+
+Tabla simple que muestra la cantidad de reos por nacionalidad, vemos que por debajo de la Peruana estan las nacionalidades, Colombiana,Español y Mexicano. 
+
+
+##### EDAD
+
+**Distribución de las edades de los reos penitenciarios**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+library(ggplot2)
+CNPP_data|>
+  select(EDAD,GENERO,P104_1,NAC_DD)|>
+  rename("NIVEL_EDUCATIVO"=P104_1,"LUGAR_DE_NACIMIENTO"=NAC_DD)|>
+  count(EDAD)|>
+  rename("TOTAL_DE_PERSONAS"=n)|>
+  ggplot()+
+  aes(x = EDAD, y = TOTAL_DE_PERSONAS)+
+  geom_line() +
+  labs(x = "Edad", y = "Cantidad de reos", title = "Distribución de Edades") +
+  theme_minimal()
+  
+```
+
+Tenemos un diagrama de lineas simple que en el pico es aprox los 28 años, llegando a los 3 mil reos con esa edad, seguidos por los 22 años y 32 años. Son las 3 edades que tienen la mayor cantidad de reos.
+
+
+
+##### NAC_DD
+
+**Lugar de Nacimiento - Departamento**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+library(dplyr)
+
+CNPP_data_NAC <- CNPP_data %>%
+  filter(!is.na(NAC_DD) & NAC_DD != "") #Filtrando para omitir blanco y nulos
+
+tabla_departamentos <- table(CNPP_data_NAC$NAC_DD) #Se crea la tabla de frecunencia
+df_frecuencias <- as.data.frame(tabla_departamentos) 
+colnames(df_frecuencias) <- c("Departamento", "Frecuencia")
+df_DEP_NAC <- df_frecuencias %>%
+  arrange(desc(Frecuencia))
+
+print(df_DEP_NAC)
+
+```
+La tabla muestra que las personas que tienden a ser recluidas en un centro penitenciario pertenecen al departamento de Lima. Seguido de La Libertad, luego continúa Huánuco con alrededor de 4 mil personas. Cabe resaltar que el departamento de Lima muestra alrededor de cuatro veces la población del siguiente departamento.
+
+
+
+##### P_101
+
+**IDIOMA ESPECÍFICO APRENDIDO EN SU NIÑEZ**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+idioma_var <- unique(CNPP_data$P101) 
+print(idioma_var)
+```
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# Creando la vriable que muestre los datos del idioma
+CNPP_data <- CNPP_data %>%
+  mutate(P101 = as.character(P101))
+
+CNPP_data <- CNPP_data %>%
+  mutate(P101_label = case_when(
+    P101 == "1" ~ "Quechua",
+    P101 == "2" ~ "Aymara",
+    P101 == "3" ~ "Ashaninka",
+    P101 == "4" ~ "Awajún/Aguaruna",
+    P101 == "5" ~ "Shipibo-Konibo",
+    P101 == "6" ~ "Otra lengua nativa",
+    P101 == "7" ~ "Castellano",
+    P101 == "8" ~ "Inglés",
+    P101 == "9" ~ "Otra lengua extranjera",
+    P101 == "10" ~ "Es sordomudo/a o mudo/a",
+    TRUE ~ "Desconocido" 
+  ))
+
+idioma_var1 <- unique(CNPP_data$P101_label) 
+print(idioma_var1)
+
+```
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+#Se crea la tabla que muestra la frecuencia del primer idioma aprendido
+IDIOMA_FIL <- CNPP_data %>%
+  filter(!is.na(P101_label))
+
+IDIOMA <- table(IDIOMA_FIL$P101_label)
+IDIOMA_df <- as.data.frame(IDIOMA)
+colnames(IDIOMA_df) <- c("Valor", "Frecuencia")
+IDIOMA_df <- IDIOMA_df %>%
+  arrange(desc(Frecuencia))
+
+print(IDIOMA_df)
+
+```
+
+Se encuentra que el Castellano es el idioma más hablado, como era de esperarse. Son los idiomas Quecha y Aymara, el segundo y tercer idioma más hablado, respectivamente.
+
+
+##### P104_1
+
+**ÚLTIMO GRADO EDUCATIVO ALCANZADO ANTES DE SER RECLUIDO**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+educ_var <- unique(CNPP_data$P104_1) 
+print(educ_var)
+
+```
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# Creando la vriable que muestre las categorías de la variable educación
+CNPP_data <- CNPP_data %>%
+  mutate(P104_1 = as.character(P104_1))
+
+CNPP_data <- CNPP_data %>%
+  mutate(P104_1_label = case_when(
+    P104_1 == "2" ~ "Educación inicial",
+    P104_1 == "3" ~ "Primaria incompleta",
+    P104_1 == "4" ~ "Primaria completa",
+    P104_1 == "5" ~ "Secundaria incompleta",
+    P104_1 == "6" ~ "Secundaria completa",
+    P104_1 == "7" ~ "Superior no universitaria incompleta",
+    P104_1 == "8" ~ "Superior no universitaria completa",
+    P104_1 == "9" ~ "Superior universitaria incompleta",
+    P104_1 == "10" ~ "Superior universitaria completa",
+    TRUE ~ NA_character_
+  ))
+
+educ_var1 <- unique(CNPP_data$P104_1_label) 
+print(educ_var1)
+
+```
+```{r}
+
+EDUC <- CNPP_data %>%
+  filter(!is.na(P104_1_label))
+
+# Crear un gráfico de barras para la variable P104_1_label
+ggplot(EDUC, aes(x = P104_1_label)) +
+  geom_bar(aes(y = ..count..), fill = "pink", color = "black", stat = "count") +
+  geom_text(aes(label = ..count..), stat = "count", vjust = -0.5) +
+  labs(title = "Distribución de Niveles de Educación",
+       x = "Nivel de Educación",
+       y = "Frecuencia") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+
+
+```
+* Se crea el gráfico que brinda mayor detalle acerca del nivel de educación. En este sentido, se encuentra que las categoría secundaria completa e incompleta son en las que mayormente se localizan los convictos.
+
+
+
+##### P105
+
+**MOTIVO POR EL CÚAL NO CULMINÓ SUS ESTUDIOS**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+educ_105 <- unique(CNPP_data$P105) 
+print(educ_105)
+```
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# Creando la vriable que muestre las categorías de la variable educación
+CNPP_data <- CNPP_data %>%
+  mutate(P105 = as.character(P105))
+
+CNPP_data <- CNPP_data %>%
+  mutate(P105_label = case_when(
+    P104_1 == "1" ~ "La familia no le permitió",
+    P104_1 == "2" ~ "La familia es/era muy pobre",
+    P104_1 == "3" ~ "Tenía necesidad económica",
+    P104_1 == "4" ~ "No le gustaba estudiar",
+    P104_1 == "5" ~ "Lo expulsaron",
+    P104_1 == "6" ~ "Por haber ingresado a prisión",
+    P104_1 == "7" ~ "	Tenía que cuidar a mis hermanos(as)",
+    P104_1 == "8" ~ "Mi pareja me lo impidió",
+    TRUE ~ NA_character_
+  ))
+
+razon_var1 <- unique(CNPP_data$P105_label) 
+print(razon_var1)
+```
+```{r}
+RAZON <- CNPP_data %>%
+  filter(!is.na(P105_label))
+
+# Crear un gráfico de barras para la variable P105_label
+ggplot(RAZON, aes(x = P105_label)) +
+  geom_bar(aes(y = ..count..), fill = "lightgreen", color = "black", stat = "count") +
+  geom_text(aes(label = ..count..), stat = "count", vjust = -0.5) +
+  labs(title = "Distribución de Razones por las que dejó de estudiar",
+       x = "Razón por la que dejo de estudiar",
+       y = "Frecuencia") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 55, hjust = 1))
+
+```
+* Se encuentra que las razones principales por las que no culminaron sus estudios es porque los expulsaron, por haber ingresado a prisión y por necesidad económica.
+
+
+
+
+##### P109
+
+**¿ANTES DE INGRESAR AL E.P. USTED CONSUMÍA: Drogas? ¿ANTES DE INGRESAR AL E.P. USTED CONSUMÍA: Bebidas alcohólicas? ¿ANTES DE INGRESAR AL E.P. USTED CONSUMÍA: Cigarrillos?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+# Se crea una nueva variable, denominada "consumo"; cuyos valor es "Sí" cuando el reo consumía drogas, bebidas alcohólicas o cigarillos antes de ingresar al centro penitenciario.
+
+CNPP_data <- CNPP_data |> 
+  mutate(consumo = case_when(P109_1 == 1 & (P109_2 == 2 | P109_2 == 3) & (P109_3 == 2 | P109_3 == 3) ~ "DROGAS", (P109_1 == 2 | P109_1 == 3) & P109_2 == 1 & (P109_3 == 2 | P109_3 == 3) ~ "BEBIDAS ALCOHOLICAS", (P109_1 == 2 | P109_1 == 3) & (P109_2 == 2 | P109_2 == 3) & P109_3 == 1 ~ "CIGARRILLOS", P109_1 == 1 & P109_2 == 1 & (P109_3 == 2 | P109_3 == 3) ~ "DROGAS Y BEBIDAS ALCOHOLICAS", P109_1 == 1 & (P109_2 == 2 | P109_2 == 3) & P109_3 == 1 ~ "DROGAS Y CIGARRILLOS", (P109_1 == 2 | P109_1 == 3) & P109_2 == 1 & P109_3 == 1 ~ "BEBIDAS ALCOHOLICAS Y CIGARRILLOS", P109_1 == 1 & P109_2 == 1 & P109_3 == 1 ~ "DROGAS, BEBIDAS ALCOHOLICAS Y CIGARRILLOS", TRUE ~ "NO/NO CONTESTA"))
+
+# Utilizando 'count' y 'mutate' hallamos la cantidad de reos que consumían drogas, bebidas alcohólicas o cigarillos antes de ingresar al centro penitenciario, así como el porcentaje que representan respecto del total.
+
+CNPP_data |>
+  count(consumo) |>                          
+  mutate(Porcentaje_consumo = round(n/sum(n)*100,1)) |> 
+  print(n = Inf) |>   
+  arrange(desc(n))
+
+
+# A partir de la variable obtenida ('consumo'), se presenta a continuación un gráfico de barras que permitirá observar la cantidad de reos que consumían drogas, bebidas alcohólicas o cigarillos antes de ingresar al centro penitenciario.
+
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No sabe/No contesta")
+
+CNPP_data|>
+  mutate(consumo = recode_factor(consumo,!!!etiqueta_1)) |>
+  count(consumo) |>
+  ggplot() +
+  aes(x=1, y=n, fill=consumo) +
+  geom_col(position = "dodge", width = 0.8) +
+  geom_text(aes(label = n),
+            position = position_dodge(width = 0.8), vjust = -0.5, size = 3, fontface = "bold") +
+  theme_minimal() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: CONSUMO ANTES DE INGRESAR AL ESTABLECIMIENTO \nPENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)",
+    x = "Consumo",
+    y = "Frecuencia")+
+  theme(axis.text.x = element_blank())
+
+```
+
+
+Como puede observarse, un gran número de reos señala que consumían bebidas alcohólicas antes de ingresar al establecimiento penitenciario. En segundo lugar, 18,117 reos mencionan que no consumían ninguna de las opciones previamente mencionadas o prefirieron no contestar a la interrogante. 
+
+Luego de ello, podemos observar que lo siguen en cantidad los reos que consumían "Bebidas alcohólicas y cigarrillos", "Drogas, bebidas alcohólicas y cigarrilllos" y "Drogas y bebidas alcohólicas"; al respecto, puede observarse que las bebidas alcohólicas tienen una fuerte presencia en el consumo de los reos, desde antes de ingresar al establecimiento penitenciario.
+
+
+##### P114
+
+**ANTES DE INGRESAR AL ESTABLECIMIENTO PENITENCIARIO, ¿USTED TRABAJÓ ALGUNA VEZ?**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+# Utilizando 'count' y 'mutate' hallamos la cantidad de reos que trabajaron alguna vez antes de ingresar al establecimiento penitenciario, así como el porcentaje que representan respecto del total.
+
+CNPP_data |>
+  count(P114) |>
+  mutate(Porcentaje_trabajo_antes = round(n/sum(n)*100,1)) |>
+  print(n = Inf) |>   
+  arrange(desc(n)) |> 
+  rename("cantidad_reos"=n)
+
+# A partir de ello, se presenta a continuación un gráfico circular que permitirá observar la cantidad de reos que trabajaron o no alguna vez antes de ingresar al establecimiento penitenciario.
+
+table(CNPP_data$P114)
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No sabe/No contesta")
+
+CNPP_data |>
+  mutate(P114 = recode_factor(P114,!!!etiqueta_1)) |>
+  count(P114) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P114) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5), size=3, fontface = "bold") +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE TRABAJÓ ANTES \nINGRESAR AL ESTABLECIMIENTO PENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)")
+
+
+```
+
+Como puede observarse, el 95.6% de los reos sí trabajó alguna vez antes de ingresar al establecimiento penitenciario.
+
+
+##### P113
+
+**¿ALGÚN MIEMBRO DE SU FAMILIA ESTUVO PRESO EN UN ESTABLECIMIENTO PENITENCIARIO ALGUNA VEZ?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# Utilizando 'count' y 'mutate' hallamos la cantidad de reos que tuvieron a algún miembro de su familia preso en un establecimiento penitenciario, así como el porcentaje que representan respecto del total.
+
+CNPP_data |>
+  count(P133) |>
+  mutate(Porcentaje_trabajo_antes = round(n/sum(n)*100,1)) |>
+  print(n = Inf) |>   
+  arrange(desc(n)) |> 
+  rename("cantidad_reos"=n)
+
+# A partir de ello, se presenta a continuación un gráfico circular que permitirá observar la cantidad de reos que tuvieron a algún miembro de su familia preso en un establecimiento penitenciario.
+
+table(CNPP_data$P133)
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No recuerda/No contesta")
+
+CNPP_data |>
+  mutate(P133 = recode_factor(P133,!!!etiqueta_1)) |>
+  count(P133) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P133) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5), size=3, fontface = "bold") +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: ¿ALGÚN MIEMBRO DE LA FAMILIA DEL REO PENITENCIARIO \nESTUVO PRESO EN UN ESTABLECIMIENTO PENITENCIARIO \nALGUNA VEZ?",
+    subtitle = "(Frecuencia, porcentaje)")
+
+
+```
+
+
+Como puede observarse, el 69.7% de los reos no tuvo a algún miembro de su familia preso en un establecimiento penitenciario; mientras que un 29.5% afirma que sí lo tuvo.
+
+##### P135
+
+**ANTES DE CUMPLIR LOS 18 AÑOS DE EDAD. ¿ALGUN(OS) DE SU(S) MEJOR(ES) AMIGO(S) COMETÍA(N) DELITOS?**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# Utilizando 'count' y 'mutate' hallamos la cantidad de reos que, antes de cumplir los 18 años de edad, tuvieron algún mejor amigo que cometía delitos, así como el porcentaje que representan respecto del total.
+
+CNPP_data |>
+  count(P135) |>
+  mutate(Porcentaje_trabajo_antes = round(n/sum(n)*100,1)) |>
+  print(n = Inf) |>   
+  arrange(desc(n)) |> 
+  rename("cantidad_reos"=n)
+
+# A partir de ello, se presenta a continuación un gráfico circular que permitirá observar la cantidad de reos que, antes de cumplir los 18 años de edad, tuvieron algún mejor amigo que cometía delitoso.
+
+table(CNPP_data$P135)
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No recuerda/No contesta")
+
+CNPP_data |>
+  mutate(P135 = recode_factor(P135,!!!etiqueta_1)) |>
+  count(P135) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P135) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5), size=3, fontface = "bold") +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: ANTES DE QUE EL REO PENITENCIARIO CUMPLA \n18 AÑOS, ¿ALGUNO DE SUS MEJORES AMIGOS COMETÍAN \nDELITOS?",
+    subtitle = "(Frecuencia, porcentaje)")
+
+```
+
+Como puede observarse, el 65% de los reos señala que, antes de cumplir los 18 años de edad, no tuvieron algún mejor amigo que cometiera delitos; mientras que un 34% señala que sí lo tuvo.
+
+
+##### P215
+
+**¿USTED ESTUVO INTERNADO(A) EN ALGÚN CENTRO JUVENIL?**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P215, useNA = "alw")
+
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No sabe/No contesta")
+
+
+CNPP_data$P215 <- as.factor(CNPP_data$P215)
+
+
+CNPP_data |>
+  filter(!is.na(P215)) |>
+  mutate(P215 = recode_factor(P215,!!!etiqueta_1)) |>
+  count(P215) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P215) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE ESTUVO \nINTERNADO(A) EN ALGÚN CENTRO JUVENIL",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+El 91.8% de la población penitenciaria no estuvo internado en algún centro juvenil.
+
+
+##### P220
+
+**SIN TOMAR EN CUENTA LA SENTENCIA QUE ACTUALMENTE CUMPLE: ¿EN ALGUNA OTRA OCASIÓN LO HABÍAN SENTENCIADO O PROCESADO A PENA EFECTIVA POR ALGÚN OTRO DELITO?**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P220, useNA = "alw")
+
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No sabe/No contesta")
+
+
+CNPP_data$P220 <- as.factor(CNPP_data$P220)
+
+CNPP_data |>
+  filter(!is.na(P220)) |>
+  mutate(P220 = recode_factor(P220,!!!etiqueta_1)) |>
+  count(P220) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P220) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE ESTUVO \nANTERIORMENTE SENTENCIADO O PROCESADO A PENA \nEFECTIVA POR ALGÚN OTRO DELITO",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+El 16.6% de la población penitenciaria estuvo anteriormente sentenciado o procesado a pena efectiva por algún otro delito.
+
+
+Además, la siguiente tabla muestra el establecimiento penitenciario a las que pertenecen los reos reincidentes.
+
+```{r}
+table(CNPP_data$EST_PENIT, CNPP_data$P220)
+```
+
+Se puede observar que el establecimiento penitenciario donde se encuentra la mayoría de reos reincidentes (opción 1) están en el E.P. de Lurigancho (1199 reos).
+
+
+
+#### Durante: Contexto del delito y situación en el establecimiento penitenciario
+
+##### DELITO_GENERICO
+
+**Delitos genéricos**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+delitos_var <- unique(CNPP_data$DELITO_GENERICO) 
+print(delitos_var)
+```
+
+Esta información muestra todos los tipos de delitos que han cometido las personas encuestadas y que se encluentran recluidas en los centros penitenciarios. 
+
+DELITOS GENÉRICOS ORDENADO POR ORDEN DE FRECUENCIA
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+tabla_delitos <- table(CNPP_data$DELITO_GENERICO)
+df_DEL_GEN <- as.data.frame(tabla_delitos)
+colnames(df_DEL_GEN) <- c("DELITO_GENERICO", "Frecuencia")
+df_DEL_GEN <- df_DEL_GEN %>%
+  arrange(desc(Frecuencia))
+
+print(df_DEL_GEN)
+
+```
+
+Se encuentra que el delito más cometido es el delito contra el patrimonio,  seguido de la seguridad pública. En tercer lugar se encuentra el delito contra la libertad y cuarto es el delito contra la vida, el cuerpo y la salud.
+
+
+**DELITO GENÉRICO COMETIDO POR CADA DEPARTAMENTO**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+CNPP_data_filtered <- CNPP_data %>% #Filtrando el delito cometido sin NA o espacios
+  filter(!is.na(P201_DD) & P201_DD != "")
+
+delitoxdep<- CNPP_data_filtered %>% 
+  group_by(P201_DD, DELITO_GENERICO) %>%
+  summarize(Frecuencia = n()) %>%
+  slice(which.max(Frecuencia)) %>%
+  arrange(desc(Frecuencia))
+
+print(delitoxdep)
+
+```
+
+Para profundizar el tipo de delitos, se realiza un análisis que muestra en el tipo de delitos que es más freucnete por cada departamento. En este sentido, se encuentra que el delito contra el patrimonio es el más cometido. 
+
+**DELITOS ESPECÍFICOS A PARTIR DEL DELITO MÁS COMETIDO**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+CNPP_data_filtrado_delitos_patrimonio <- CNPP_data %>% #Se filtra un solo delito
+  filter(!is.na(DELITO_GENERICO) & DELITO_GENERICO == "DELITOS CONTRA EL PATRIMONIO")
+
+#Tabla por delito específico
+delitos_patrimonio <- CNPP_data_filtrado_delitos_patrimonio %>%
+  group_by(DELITO_ESPECIFICO) %>%
+  summarize(Frecuencia = n()) %>%
+  arrange(desc(Frecuencia))
+
+print(delitos_patrimonio)
+
+```
+
+Se desagrega el delito de delitos contra el patrimonio para conocer cuáles son los tipos de delito que se comete con mayor frecuencia. Dicha información muestraque es el robo agravado el delito más cometido.
+
+
+
+##### P107
+
+**¿PADECE UD. DE: ENFERMEDADES CRÓNICAS? ¿PADECE UD. DE: ENFERMEDADES INFECTO CONTAGIOSAS? ¿PADECE UD. DE: OTRAS ENFERMEDADES?**
+
+**-Enfermedades crónicas:** asma, bronquitis o enfisema, hipertensión, diabetes.
+
+**-Enfermedades infecto contagiosas:** tuberculosis, infecciones de transmisión sexual, VIH/SIDA.
+
+**-Otras enfermedades:** hepatitis, depresión, ansiedad, adicción a sustancias psicoactivas, cáncer, otro.
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# A continuación se crea una nueva variable, denominada "enfermedades"; cuyo valor es "Sí" cuando el reo posee una enfermedad crónica, infecto contagiosa u otra.
+
+# Para dicho fin, en primer lugar creamos una variable dicotómica por cada tipo de enfermedad (Crónica/Infecto contagiosa/Otra); en la cual, el valor de "1" significa que el reo tiene al menos una enfermedad del tipo respectivo. 
+
+
+CNPP_data <- CNPP_data |> 
+  mutate(enfermedad_cronica = case_when(P107_1 == 1 | P107_2 == 1 | P107_3 == 1 ~ "1", TRUE ~ "2"))
+
+CNPP_data <- CNPP_data |> 
+  mutate(enfermedad_infecto_contagiosa = case_when(P107_4 == 1 | P107_5 == 1 | P107_6 == 1 ~ "1", TRUE ~ "2"))
+
+
+CNPP_data <- CNPP_data |> 
+  mutate(enfermedad_otra = case_when(P107_7 == 1 | P107_8 == 1 | P107_9 == 1 | P107_10 == 1 | P107_11 == 1 | P107_12 == 1 ~ "1", TRUE ~ "2"))
+
+# Luego, creamos una nueva variable denominada 'enfermedades', que pueda resumir el tipo de enfermedad que tiene cada reo penitenciario.
+
+CNPP_data <- CNPP_data |> 
+  mutate(enfermedades = case_when(enfermedad_cronica == 1 & enfermedad_infecto_contagiosa == 2 & enfermedad_otra == 2 ~ "CRONICA", enfermedad_cronica == 2 & enfermedad_infecto_contagiosa == 1 & enfermedad_otra == 2 ~ "INFECTO CONTAGIOSA", enfermedad_cronica == 2 & enfermedad_infecto_contagiosa == 2 & enfermedad_otra == 1 ~ "OTRA", enfermedad_cronica == 1 & enfermedad_infecto_contagiosa == 1 & enfermedad_otra == 2 ~ "CRONICA E INFECTO CONTAGIOSA", enfermedad_cronica == 1 & enfermedad_infecto_contagiosa == 2 & enfermedad_otra == 1 ~ "CRONICA Y OTRA", enfermedad_cronica == 2 & enfermedad_infecto_contagiosa == 1 & enfermedad_otra == 1 ~ "INFECTO CONTAGIOSA Y OTRA", enfermedad_cronica == 1 & enfermedad_infecto_contagiosa == 1 & enfermedad_otra == 1 ~ "CRONICA, INFECTO CONTAGIOSA Y OTRO", enfermedad_cronica == 2 & enfermedad_infecto_contagiosa == 2 & enfermedad_otra == 2 ~ "NINGUNA/NO SABE/NO RESPONDE"))
+
+# Utilizando 'count' y 'mutate' hallamos la cantidad de reos que poseen cierto tipo de enfermedad, así como el porcentaje que representan respecto del total.
+
+CNPP_data |>
+  count(enfermedades) |>
+  mutate(Porcentaje_enfermedades = round(n/sum(n)*100,1)) |>
+  print(n = Inf) |>   
+  arrange(desc(n)) |> 
+  rename("cantidad_reos"=n)
+
+# A partir de la variable obtenida ('enfermedades'), se presenta a continuación un gráfico de barras que permitirá observar la cantidad de reos que poseen cierto tipo de enfermedad.
+
+library(ggplot2)
+
+CNPP_data |>
+  mutate(enfermedades = recode_factor(enfermedades, !!!etiqueta_1)) |>
+  count(enfermedades) |>
+  ggplot() +
+  aes(x = enfermedades, y = n, fill = enfermedades) +
+  geom_col(position = "dodge", width = 0.8) +
+  geom_text(aes(label = n),
+            position = position_dodge(width = 0.8), vjust = -0.5, size = 3, fontface = "bold") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE PADECE \nDE ALGUNA ENFERMEDAD",
+    subtitle = "(Frecuencia)",
+    x = "Enfermedades",
+    y = "Frecuencia")+
+  theme(axis.text.x = element_blank())
+
+
+```
+
+
+Como puede observarse, un gran número de reos señala que no tiene ninguna enfermedad, o no sabe, o no responde a la pregunta realizada. En segundo lugar, 12,370 reos mencionan que tienen otro tipo de enfermedad (hepatitis, depresión, ansiedad, adicción a sustancias psicoactivas, cáncer, otro); seguido por aquellos que tienen una enfermedad crónica (asma, bronquitis o enfisema, hipertensión, diabetes).
+
+
+##### P201_DD
+
+**DEPARTAMENTO EN EL QUE OCURRIO EL DELITO**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+# CNPP_data |>
+#   count(P201_DD) |>                          #count para contar la cantidad de casos.
+#   mutate(Porcentaje = round(n/sum(n)*100,1)) |> #Mutate crea la variable porcentaje.
+#   print(n = Inf) |>   
+#   arrange(desc(n))
+
+
+#Importar las librerías para el mapa
+
+library(plotly)
+library(mapsPERU)
+library(tidyverse)
+library(ggrepel)
+library(haven)
+
+library(leaflet)
+library(leaflet.extras)
+library(rworldxtra)
+library(raster)
+library(sf)
+
+
+
+#Extraemos las coordenadas del paquete mapsPERU departamento
+df <- map_DEP
+
+#convertimos todas las variables que tenga caracteres 
+#de minúscula a mayúsculas.
+df <- mutate_if(df, is.character, toupper)
+
+#Quitamos las tildes de las mayúsculas
+df$DEPARTAMENTO <- chartr('Á,É,Í,Ó,Ú','A,E,I,O,U', df$DEPARTAMENTO)
+
+#Renombramos la variable P201_DD de la base CNPP_data
+df_total_mapa <- rename(CNPP_data, DEPARTAMENTO = P201_DD)
+
+#Extraemos los datos de interés para el mapa
+
+Delito_depart <- df_total_mapa |>
+  count(DEPARTAMENTO) |>                          #count para contar la cantidad de casos.
+  mutate(Porcentaje = round(n/sum(n)*100,1)) |> #Mutate crea la variable porcentaje.
+  print(n = Inf) |>   
+  arrange(desc(n))
+
+#Integramos ambas bases de datos a través de DEPARTAMENTO
+mapa_delitos <- left_join(df, Delito_depart, by = "DEPARTAMENTO")
+
+#Creamos la base del mapa
+leaflet() |> addTiles() |> addCircleMarkers(data = mapa_delitos, lat = ~coords_y, radius = ~Porcentaje,
+                                        lng = ~coords_x, color = "red",
+                                        fillOpacity = 3, label = ~n, labelOptions(permanent=TRUE) )
+
+
+```
+
+El mapa permite identificar rápidamente el departamento donde ocurrió la mayor cantidad de delitos (22793 delitos) la cual corresponde a Lima; y la de menor cantidad, (464 delitos) a Huancavelica.
+
+
+##### P204
+
+**CUANDO OCURRIÓ EL DELITO, ¿USTED USÓ ALGÚN ARMA?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+CNPP_data |>
+  filter(!is.na(P204)) |>
+  count(P204) |>
+  mutate(Porcentaje = round(n/sum(n)*100,1)) |>
+  print(n = Inf)
+
+table(CNPP_data$P204, useNA = "alw")
+
+etiqueta_1 <- c(`1`="Sí",
+              `2`="No",
+              `3`="No sabe/No contesta")
+
+CNPP_data$P204 <- as.factor(CNPP_data$P204)
+
+CNPP_data |>
+  filter(!is.na(P204)) |>
+  mutate(P204 = recode_factor(P204,!!!etiqueta_1)) |>
+  count(P204) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P204) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE UTILIZÓ UN ARMA \nCUANDO OCURRIÓ EL DELITO",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+Solo el 17.9% de la población penitenciaria utilizó un arma cuando ocurrió el delito. La mayoría (81.2%) no lo utilizó.
+
+
+
+##### 303
+
+**¿USTED ESTÁ ESTUDIANDO EN ALGÚN PROGRAMA EN EL ESTABLECIMIENTO PENITENCIARIO?**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+CNPP_data$P303 <- as.factor(CNPP_data$P303)
+
+etiqueta_303 <- c(`1`="Participa", `2`="No Participa")
+
+BASE303 <- CNPP_data |>
+  filter(!is.na(P303)) |>
+  mutate(P303 = recode_factor(P303,!!!etiqueta_303)) |>
+  count(P303) |>
+  mutate(porcentaje = round(n/sum(n)*100,1))
+
+etiquetas <- paste0(etiqueta_303, "\n(", BASE303$n, ", ", BASE303$porcentaje, "%)" )
+pie(BASE303$n, labels = etiquetas,col=c("blue","red"), main="PARTICIPACION EN TALLERES PENITENCIARIOS \n(Frecuencia, Porcentaje)")
+
+```
+El 25.7% de los internos en los Centros Penitenciarios participan en talleres penitenciarios.
+
+
+##### 306
+
+**¿POR QUÉ PARTICIPA EN LOS TALLERES LABORALES?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+table(CNPP_data$P306, useNA = "alw")
+
+etiqueta_306 <- c(`1`="APRENDER UN OFICIO", `2`="OBTENER BENEFICIOS", `3`="PASAR TIEMPO", `4`="OTROS")
+
+
+CNPP_data$P306 <- as.factor(CNPP_data$P306)
+
+BASE306 <- CNPP_data |>
+  filter(!is.na(P306)) |>
+  mutate(P306 = recode_factor(P306,!!!etiqueta_306)) |>
+  count(P306) |>
+  mutate(Porcentaje = round(n/sum(n)*100,1))
+
+etiquetas <- paste0(etiqueta_306, "(", BASE306$n, ", ", BASE306$Porcentaje, "%)" )
+pie(BASE306$n, labels = etiquetas,col=c("red","green", "blue", "orange"), main="MOTIVOS POR LOS QUE PARTICIPA DE TALLERES LABORALES \n(Frecuencia, Porcentaje)")
+```
+De los distintos talleres penitenciarios que brinda el centro penitenciario, un tipo de taller son los talleres laborales. Hay  13472 incritos. El principal motivo para incribirse en este tipo de taller es aprender un oficio (53.8%).
+
+##### 308
+
+**¿CUÁL ES LA RAZÓN POR LA QUE USTED NO PARTICIPA EN PROGRAMAS EDUCATIVOS?**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+etiqueta_308 <- c(`1`="No existen programas adecuados a su nivel"			,`2`=	"No le interesan los programas educativos que se ofrecen"		,`3`=	"Porque trabajo"	,`4`=	"No hay vacantes disponibles"			,`5`=	"Otros"			,`6` = "No sabe / No contesta"		,`7`= "Recien a ingresado o esta cerca a salir del penal"			,`8`=	"Problemas economicos"			,`9`=	"Por enfermedad y/o estado de salud"	,`10`=	"Falta de beneficios penitenciarios")
+table(CNPP_data$P308, useNA = "alw")
+# CNPP_data$P308
+CNPP_data$P308 <- as.factor(CNPP_data$P308)
+
+CNPP_data |>
+  filter(!is.na(P308)) |>
+  mutate(P308 = recode_factor(P308,!!!etiqueta_308)) |>
+  filter(P308!="No sabe / No contesta") |>
+  count(P308) |>
+  mutate(porcentaje = round(n/sum(n)*100,1)) |>
+    ggplot() +
+  aes(x=1, y=n, fill=P308) +
+  geom_col(position = "dodge", width = 0.8) +
+  geom_text(aes(label = n),
+            position = position_dodge(width = 0.8), vjust = -0.5, size = 3, fontface = "bold") +
+  theme_minimal() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = paste0("¿CUÁL ES LA RAZÓN POR LA QUE USTED NO PARTICIPA \nEN PROGRAMAS EDUCATIVOS?"),
+    subtitle = paste0("Frecuencia"),
+    x = "Razón",
+    y = "Frecuencia")+
+  theme(axis.text.x = element_blank())
+
+```
+
+Asimismo, los centros penitenciarios también brindan programas educativos. La principal razón por la cual no participan los internos es porque ya poseen un trabajo (58%)
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+BASE308 <- CNPP_data |>
+  filter(!is.na(P308)) |>
+  mutate(P308 = recode_factor(P308,!!!etiqueta_308)) |>
+  filter(P308!="No sabe / No contesta") |>
+  count(P308) |>
+  mutate(porcentaje = round(n/sum(n)*100,1)) 
+  
+BASE308
+```
+
+
+
+##### 313_1
+
+**¿EN CUÁLES DE LAS SIGUIENTES ACTIVIDADES UD HA PARTICIPADO DURANTE EL ÚLTIMO MES: Actividades deportivas?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+table(CNPP_data$P313_1)
+
+CNPP_data$P313_1 <- as.factor(CNPP_data$P313_1)
+
+etiqueta_313_1 <- c(`1`="SI", `2`="NO", `3`="NO SABE / NO OPINA")
+
+BASE313_1 <- CNPP_data |>
+  filter(!is.na(P313_1)) |>
+  mutate(P313_1 = recode_factor(P313_1,!!!etiqueta_313_1)) |>
+  count(P313_1) |>
+  mutate(porcentaje = round(n/sum(n)*100,1))
+
+etiquetas <- paste0(etiqueta_313_1, " (",BASE313_1$porcentaje, " %)" )
+pie(BASE313_1$n, labels = etiquetas, col=c("blue","red"), main=paste0("PARTICIPACIÓN EN LAS ACTIVIDADES DEPORTIVAS \nDURANTE EL ÚLTIMO MES \n(En Porcentaje, N=", sum(BASE313_1$n),")"))
+
+```
+El 64.9% de los internos en los Centros Penitenciarios participan en actividades deportivas durante el último mes.
+
+
+##### 313_2
+
+**¿EN CUÁLES DE LAS SIGUEINTES ACTIVIDADES UD HA PARTICIPADO DURANTE EL ÚLTIMO MES: Actividades laborales reconocidas por el INPE?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+table(CNPP_data$P313_2)
+
+CNPP_data$P313_2 <- as.factor(CNPP_data$P313_2)
+
+etiqueta_313_2 <- c(`1`="SI", `2`="NO", `3`="NO SABE / NO OPINA")
+
+BASE313_2 <- CNPP_data |>
+  filter(!is.na(P313_2)) |>
+  mutate(P313_1 = recode_factor(P313_2,!!!etiqueta_313_2)) |>
+  count(P313_2) |>
+  mutate(porcentaje = round(n/sum(n)*100,1))
+
+etiquetas <- paste0(etiqueta_313_2, " (",BASE313_2$porcentaje, " %)" )
+pie(BASE313_2$n, labels = etiquetas, col=c("green","yellow","blue"), main=paste0("PARTICIPACIÓN EN LABORES RECONOCIDAS POR EL INPE \nDURANTE EL ÚLTIMO MES \n(En Porcentaje, N=", sum(BASE313_2$n),")"))
+
+```
+El 48.1% de los internos en los Centros Penitenciarios participan en labores reconocida por la INPE durante el último mes.
+
+
+
+##### 313_3
+
+**¿EN CUÁLES DE LAS SIGUEINTES ACTIVIDADES UD HA PARTICIPADO DURANTE EL ÚLTIMO MES: Labores de limpieza o mantenimiento de la institución?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+table(CNPP_data$P313_3)
+
+CNPP_data$P313_3 <- as.factor(CNPP_data$P313_3)
+
+etiqueta_313_3 <- c(`1`="SI", `2`="NO", `3`="NO SABE / NO OPINA")
+
+BASE313_3 <- CNPP_data |>
+  filter(!is.na(P313_3)) |>
+  mutate(P313_3 = recode_factor(P313_3,!!!etiqueta_313_3)) |>
+  count(P313_3) |>
+  mutate(porcentaje = round(n/sum(n)*100,1))
+
+etiquetas <- paste0(etiqueta_313_3, " (",BASE313_3$porcentaje, " %)" )
+pie(BASE313_3$n, labels = etiquetas, col=c("orange","purple","gray"), main=paste0("PARTICIPACIÓN EN LABORES DE LIMPIEZA \nDURANTE EL ÚLTIMO MES \n(En Porcentaje, N=", sum(BASE313_3$n),")"))
+
+```
+El 69.8% de los internos en los Centros Penitenciarios participan en labores de limpieza durante el último mes.
+
+
+##### 313_4
+
+**¿EN CUÁLES DE LAS SIGUEINTES ACTIVIDADES UD HA PARTICIPADO DURANTE EL ÚLTIMO MES: Programa de tratamiento PIM?**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+table(CNPP_data$P313_4)
+
+CNPP_data$P313_4 <- as.factor(CNPP_data$P313_4)
+
+etiqueta_313_4 <- c(`1`="SI", `2`="NO", `3`="NO SABE / NO OPINA")
+
+BASE313_4 <- CNPP_data |>
+  filter(!is.na(P313_4)) |>
+  mutate(P313_4 = recode_factor(P313_4,!!!etiqueta_313_4)) |>
+  count(P313_4) |>
+  mutate(porcentaje = round(n/sum(n)*100,1))
+
+etiquetas <- paste0(etiqueta_313_4, " (",BASE313_4$porcentaje, " %)" )
+pie(BASE313_4$n, labels = etiquetas, col=c("green","red","gray"), main=paste0("PARTICIPACIÓN EN PROGRAMA DE TRATAMIENTO - PIM \nDURANTE EL ÚLTIMO MES \n(En Porcentaje, N=", sum(BASE313_4$n),")"))
+
+```
+El 43.3% de los internos en los Centros Penitenciarios participan en programas de tratamiento - PIM durante el último mes.
+
+
+##### 314 
+
+**¿POR QUÉ USTED NO REALIZA NINGUNA ACTIVIDAD DENTRO DE LA INSTITUCIÓN?**
+
+```{r}
+etiqueta_314 <- c(`1`="No proporcionan trabajo",`2`="No le gustan los trabajos ofrecidos",`3`="Estudia",`4`="Porque no tengo el dinero",`5`="No es rentable",`6`="No tienen material y/o herramientas para trabajar",`7`="Otros", `8`="No sabe / No contesta",`9`="Ingreso recien al penal",`10`="Por enfermedad y/o estado de salud")
+table(CNPP_data$P314, useNA = "alw")
+
+# CNPP_data$P314
+
+CNPP_data$P314 <- as.factor(CNPP_data$P314)
+
+CNPP_data |>
+  filter(!is.na(P314)) |>
+  mutate(P314 = recode_factor(P314,!!!etiqueta_314)) |>
+  filter(P314!="No sabe / No contesta") |>
+  count(P314) |>
+  mutate(porcentaje = round(n/sum(n)*100,1)) |>
+      ggplot() +
+  aes(x=1, y=n, fill=P314) +
+  geom_col(position = "dodge", width = 0.8) +
+  geom_text(aes(label = n),
+            position = position_dodge(width = 0.8), vjust = -0.5, size = 3, fontface = "bold") +
+  theme_minimal() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = paste0("¿POR QUÉ USTED NO REALIZA NINGUNA ACTIVIDAD \nDENTRO DE LA INSTITUCIÓN?"),
+    subtitle = paste0("Frecuencia"),
+    x = "Motivo",
+    y = "Frecuencia")+
+  theme(axis.text.x = element_blank())
+```
+
+El principal motivo por la que no realiza ninguna actividad en los centros penitenciarios es debido a que recién han ingresado al penal (17.7%).
+
+```{r}
+BASE314 <- CNPP_data |>
+  filter(!is.na(P314)) |>
+  mutate(P314 = recode_factor(P314,!!!etiqueta_314)) |>
+  filter(P314!="No sabe / No contesta") |>
+  count(P314) |>
+  mutate(porcentaje = round(n/sum(n)*100,1)) 
+  
+BASE314
+```
+
+
+
+#### Después: Expectativas al salir del establecimiento penitenciario
+
+
+##### P403_1
+
+**¿QUÉ PIENSA HACER CUANDO SALGA DEL EP? Estudiar**
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P403_1, useNA = "alw")
+
+etiqueta_2 <- c(`0`="No",
+              `1`="sí")
+
+CNPP_data$P403_1 <- as.factor(CNPP_data$P403_1)
+
+
+CNPP_data |>
+  filter(!is.na(P403_1)) |>
+  mutate(P403_1 = recode_factor(P403_1,!!!etiqueta_2)) |>
+  count(P403_1) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() + 
+  aes(x=1, y=Porcentaje, fill=P403_1) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE PIENSA \nESTUDIAR LUEGO DE SALIR DEL ESTABLECIMIENTO \nPENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)"
+  ) 
+```
+
+Solo el 13.4% de la población penitenciaria piensa estudiar luego de salir del establecimiento penitenciario.
+
+
+##### P403_2
+
+**¿QUÉ PIENSA HACER CUANDO SALGA DEL EP? Trabajar**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P403_2, useNA = "alw")
+
+etiqueta_2 <- c(`0`="No",
+              `1`="sí")
+
+CNPP_data$P403_2 <- as.factor(CNPP_data$P403_2)
+
+CNPP_data |>
+  filter(!is.na(P403_2)) |>
+  mutate(P403_2 = recode_factor(P403_2,!!!etiqueta_2)) |>
+  count(P403_2) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() +
+  aes(x=1, y=Porcentaje, fill=P403_2) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE PIENSA \nTRABAJAR LUEGO DE SALIR DEL ESTABLECIMIENTO \nPENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+El 92.9% de la población penitenciaria piensa trabajar luego de salir del establecimiento penitenciario.
+
+
+##### P403_3
+
+**¿QUÉ PIENSA HACER CUANDO SALGA DEL EP? Viajar**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P403_3, useNA = "alw")
+
+etiqueta_2 <- c(`0`="No",
+              `1`="sí")
+
+CNPP_data$P403_3 <- as.factor(CNPP_data$P403_3)
+
+CNPP_data |>
+  filter(!is.na(P403_3)) |>
+  mutate(P403_3 = recode_factor(P403_3,!!!etiqueta_2)) |>
+  count(P403_3) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1))|>
+  ggplot() + 
+  aes(x=1, y=Porcentaje, fill=P403_3) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE PIENSA \nVIAJAR LUEGO DE SALIR DEL ESTABLECIMIENTO \nPENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+El 4.9% de la población penitenciaria piensa viajar luego de salir del establecimiento penitenciario.
+
+
+##### P403_4
+
+**¿QUÉ PIENSA HACER CUANDO SALGA DEL EP? Retornar a mi país**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P403_4, useNA = "alw")
+
+etiqueta_2 <- c(`0`="No",
+              `1`="sí")
+
+CNPP_data$P403_4 <- as.factor(CNPP_data$P403_4)
+
+CNPP_data |>
+  filter(!is.na(P403_4)) |>
+  mutate(P403_4 = recode_factor(P403_4,!!!etiqueta_2)) |>
+  count(P403_4) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1))|>
+  ggplot() + 
+  aes(x=1, y=Porcentaje, fill=P403_4) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE PIENSA \nRETORNAR A SU PAÍS LUEGO DE SALIR DEL \nESTABLECIMIENTO PENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+El 1.4% de la población penitenciaria piensa retornar a su país luego de salir del establecimiento penitenciario.
+
+
+##### P403_5
+
+**¿QUÉ PIENSA HACER CUANDO SALGA DEL EP? Otros**
+
+
+```{r, warning=FALSE, out.width = "100%", message=FALSE}
+
+table(CNPP_data$P403_5, useNA = "alw")
+
+etiqueta_2 <- c(`0`="No",
+              `1`="sí")
+
+CNPP_data$P403_5 <- as.factor(CNPP_data$P403_5)
+
+CNPP_data |>
+  filter(!is.na(P403_5)) |>
+  mutate(P403_5 = recode_factor(P403_5,!!!etiqueta_2)) |>
+  count(P403_5) |>
+  mutate(
+    Porcentaje = round(n/sum(n)*100,1)) |>
+  ggplot() + 
+  aes(x=1, y=Porcentaje, fill=P403_5) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(n,", ",round(Porcentaje,1),"%")), 
+            position = position_stack(vjust = 0.5)) +
+  coord_polar(theta = "y") + 
+  theme_void() + 
+  scale_fill_brewer(palette="Set1") +
+  labs(
+    title = "PERÚ: POBLACIÓN PENITENCIARIA QUE PIENSA \nREALIZAR OTRA ACTIVIDAD LUEGO DE SALIR DEL \nESTABLECIMIENTO PENITENCIARIO",
+    subtitle = "(Frecuencia, porcentaje)"
+  )
+
+```
+
+El 1.9% de la población piensa realizar otra actividad luego de salir del establecimiento penitenciario.
+
+
+
+## 4. Conclusiones
+
+
+1. Sobre los antecedentes y aspectos sociodemográficos:
+
+- Una amplia mayoría de internos(as) (95.6%) trabajó antes de ingresar al Centro Penitenciario. Sin embargo, tal como se señaló, la desigualdad de oportunidades se convierte en un factor que propicia el crimen, dado que se ven imposibilitadas de alcanzar su **objetivo de riqueza**; por lo que su acción delictiva pudo haberse ocasionado a raíz de la existencia de desafíos como el nivel de educación, nivel de destreza o marginación social que impidieron tal objetivo.
+
+- En el caso del grado educativo, es la secundaria completa e incompleta en la suelen ubicarse la mayoría de personas. El motivo que brindan del por qué no terminaron su grado de estudios es que los expulsaron de su institución educativa lo cual es indicador de **conductas antisociales a temprana edad**. 
+
+- El **estilo de vida personal** y los **modelos de comportamiento social** podrían haber influido en el comportamiento delictivo. Por ejemplo, se observó que el consumo de bebidas alcohólicas y drogas estuvieron presentes en sus vidas. Asimismo, el 29.5% de los internos señaló que algún miembro de su familia estuvo preso en un Centro Penitenciario y el 34% señaló que, antes de cumplir 18 años, algunos de sus mejores amigos habían cometido delitos.
+
+- La desigualdad económica y social en el país, los actos delictivos de familiares y amigos que actúan como modelos de comportamiento social y el estilo de vida personal podrían ser parte de las **influencias** que condujeron al acto delictivo.
+
+
+2. Sobre el contexto del delito y situación en el establecimiento penitenciario:
+
+- **Lima** es el departamento en el que se comete más delitos y el lugar de nacimiento de la mayoría de los reos penitenciarios. Entre los delitos que más se cometen se encuentra contra el patrimonio; al desagregar esta variable se encuentra que el robo y hurto agravado son los delitos que más se cometen.
+
+- Se pudo observar que los internos sufren principalmente de **enfermedades crónicas**. En algunos de los casos, dichas enfermedades podrían implicar un tratamiento arduo o, incluso, no tener cura alguna. Por tanto, esto se convierte en un factor imposible de cambiar o un desafío en sus vidas, lo cual los posiciona en una difícil situación para su reinserción social.
+
+- Sobre la participación en talleres penitenciarios, 19,501 internos se encuentran registrados. Esta cantidad implica que solo el 25.7% de los internos están inscritos. En ese contexto, se evidencia la existencia de una **brecha importante de internos que no participan de ningún programa**. En ese sentido, las autoridades podrían orientar sus políticas y  establecer como indicador en sus programas presupuestales. 
+
+- De los tipos de talleres penitenciarios, INPE brinda talleres laborales, en los cuáles se encuentran registrados 13,472 internos. El principal motivo por el cual se inscriben en este tipo de taller es para aprender un oficio (53.8%), obtener beneficios (37.1%) y pasar el tiempo (8%). Se observa que **los internos consideran de gran utilidad los talleres laborales**.
+
+- Asimismo, INPE también brinda programas educativos. En tal sentido, el principal motivo por el cual los internos **no participan en este programa es porque se encuentran trabajando (58%)**, no habían vacantes disponibles (9.9%) y porque no les interesaba la oferta de programas educativos (8.5%). El INPE podría considerar los horarios de los talleres educativos para que estos no se crucen con los horarios laborales y muchos más internos puedan estudiar.
+
+- El 64.9% de los internos participaron en actividades deportivas durante el último mes. Este porcentaje significativo implica que **los internos están interesados en actividades deportivas**. INPE podría considerar brindar mayor tiempo para realizar actividades deportivas como incentivo positivo para que los internos se inscriban en talleres penitenciarios.
+
+
+3. Sobre las expectativas al salir del establecimiento penitenciario:
+
+- La mayoría de la población penitenciaria considera **trabajar como la principal actividad a realizar (92.9%)**, mientras que estudiar (13.4%), viajar (4.9%), retornar a su país (1.4%) u otra actividad (1.9%) ocupan un menor interés. En ese contexto, el interés por el trabajo como principal actividad se posiciona como un factor clave que podría influenciar en el interno para desistir de cometer actos delictivos en el futuro. Sin embargo, es importante mencionar que sólo el 48.1% participa en labores reconocidas por el INPE; asimismo, el **25.7%** participa de los talleres penitenciarios y el **53.8%** de ellos participa con la finalidad de aprender algún oficio. En consecuencia, puede existir la intención de trabajar al salir del establecimiento penitenciario pero debido a la falta de competencias es probable que tengan muchas **dificultades para alcanzarlo**.
+
+
+## 5. Limitaciones
+
+Asimismo, dada las características de los datos obtenidos, se precisa que se cuentan con las siguientes limitaciones: 
+
+  1. Limitación Temporal: La fecha del Censo (2016) no captura, ni refleja los efectos de la masiva migración venezolana, ni los efectos ocasionados por la Pandemia del Covid-19. En tal sentido, se considera que ambos eventos afectaron significativamente el estado situacional de los Centros Penitenciarios y de sus internos, y que el Censo no reflejaría  estos cambios. 
+
+
+  2. Limitación Metodológica: Los datos obtenidos del Censo Nacional de Población Penitenciaria, solo reflejan las características de los internos, por lo tanto, no hay información suficiente que permita realizar un análisis causal para identificar los determinantes sociodemográficos que inciden en ser detenidos y condenados a prisión. Asimismo, el diseño del censo no permite capturar información sobre las actividades y conductas de los internos luego de haber cumplido su condena, sólo sus expectativas. 
+
+
+## 6. Recomendaciones
+
+- Se recomienda realizar un seguimiento sobre el comportamiento posterior de los reos al salir del establecimiento penitenciario mediante estudios longitudinales.
+
+- Este estudio puede servir como insumo para el análisis comparativo con el Censo de la Población Penitenciaria del año 2024.
+
+
+
+## 7. Bibliografía
+
+
+1. Cheong, T. S., & Wu, Y. (2015). Crime rates and inequality: a study of crime in contemporary China. Journal of the Asia Pacific Economy, 20(2), 202–223. https://doi.org/10.1080/13547860.2014.964961 
+
+2. Defensoría del Pueblo (2018) Retos del Sistema Penitenciario Peruano: Un diagnóstico de la realidad carcelaria de mujeres y varones. 
+
+3. Featherstone, R. (2003). Anomie and Strain: Context and Consequences of Merton’s Two Theories*. In Sociological Inquiry (Vol. 73, Issue 4). 
+
+4. Hernández, W. (2018) Las razones de la reincidencia en el Perú: Avances de una investigación en curso. 
+
+5. Huamán, L. (2022) Reinserción laboral como instrumento de resocialización a la población ex- carcelaria como política de estado. Revista de Investigación Valdizana. 
+
+6. Magán, J. (2017) La sobrepoblación en el sistema penitenciario peruano. International Review of the Red Cross, N.° 903, 2017. 
+
+7. Merton, R. K. (1938). Social Structure and Anomie. American Sociological Review, 3(5), 672. https://doi.org/10.2307/2084686 
+
+8. Orosco, E. (2017) Verificación del cumplimiento de la finalidad constitucional de la resocialización en el Perú. Revista IURIS OMNES, Volumen:XIX, Nº 1. 
+
+9. Peñaloza, A. (2017) El fenómeno de la reinserción carcelaria en el Perú: análisis de los factores asociados a las trayectorias exitosas de reinserción social. 
+
+10. Oficina de las Naciones Unidas contra la Droga y el Delito (2013) Guía de Introducción a la Prevención de la Reincidencia y la Reintegración Social de Delincuentes. 
+
+
+

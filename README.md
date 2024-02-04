@@ -10,5 +10,5 @@
 - Ramírez De la Cruz, Guadalupe
 - Rivas Su, Juan Diego
 
-
+Puedes observar los resultados del proyecto aquí: https://guidoghl.github.io/TrabajoGrupal/
 
